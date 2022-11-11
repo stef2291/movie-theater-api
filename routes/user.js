@@ -12,14 +12,14 @@ userRouter.get("/", async (req, res) => {
 
 userRouter.get("/:uid", async (req, res) => {
   const user = await User.findByPk(req.params.uid);
-  res.send(user); //cannot send int back
+  res.status(200).send({ user }); //cannot send int back
 });
 
 userRouter.get("/:uid/shows", async (req, res) => {
   const user = await User.findByPk(req.params.uid); // why null?
   console.log(user.toJSON());
   const shows = await Show.findAll({ where: { userId: user.id } });
-  res.send(shows);
+  res.status(200).send({ shows });
 });
 
 userRouter.put("/:uid/shows/:sid", async (req, res) => {
@@ -33,7 +33,7 @@ userRouter.put("/:uid/shows/:sid", async (req, res) => {
 
   await theUser.addShow(theShow);
   console.log(req.body);
-  res.send(theUser);
+  res.status(200).send({ theUser });
 });
 
 ///////////
