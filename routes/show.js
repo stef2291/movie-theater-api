@@ -36,13 +36,13 @@ showRouter.put("/:sid/watched", async (req, res) => {
 
 showRouter.put(
   "/:sid/updates",
-  body("status").isLength({ min: 8 }),
+  body("status").isLength({ min: 5, max: 25 }),
   async (req, res) => {
     /////error handling
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      return res.status(400).send({ errors: errors.array() });
+      return res.status(400).send({ errors: errors.array() }); // server side validation
     }
 
     const theShowId = req.params.sid;
